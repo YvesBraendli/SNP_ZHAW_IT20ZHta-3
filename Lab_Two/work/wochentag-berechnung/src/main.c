@@ -18,7 +18,7 @@
 
 // *** TASK1: typedef enum types for month_t (Jan=1,...Dec} ***
 // BEGIN-STUDENTS-TO-ADD-CODE
-
+enum month_t {JAN=1, FEB, MAR, APR, MAI, JUN, JUL, AUG, SEP, OCT, NOV, DEC};
 
 // END-STUDENTS-TO-ADD-CODE
 
@@ -26,7 +26,11 @@
 
 // *** TASK1: typedef struct for date_t ***
 // BEGIN-STUDENTS-TO-ADD-CODE
-
+struct date_t {
+    int year;
+    int month;
+    int day
+};
 
 // END-STUDENTS-TO-ADD-CODE
 
@@ -106,7 +110,11 @@ int main(int argc, const char *argv[])
 {
     // TASK1: parse the mandatory argument into a date_t variable and check if the date is valid
     // BEGIN-STUDENTS-TO-ADD-CODE
-
+    char date[3];
+    int year = scanf("%s", &date[0]);
+    int month = scanf("%s", &date[1]);
+    int day = scanf("%s", &date[2]);
+    struct date_t givenDate = sscanf(date[0],"%d %d %d", &givenDate.year, &givenDate.month, &givenDate.day);
 
     // END-STUDENTS-TO-ADD-CODE
 
