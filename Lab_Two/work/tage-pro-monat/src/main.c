@@ -49,6 +49,14 @@ int main (int argc, char *argv[]) {
 }
 
 int gibIntWert(char stringSwitch[], int min, int max){
+    if (stringSwitch[0]=='M'&&(min<1||max>12)){
+        printf("Ungültiger Range für Monat. Geben sie einen Wert zwischen 1 und 12 ein.\n");
+        exit(0);
+    }
+    if (stringSwitch[0]=='J'&&(min<=1599||max>=10000)){
+        printf("Ungültiger Range für Jahr. Geben sie einen Wert zwischen 1600 und 9999 ein.\n");
+        exit(0);
+    }
     srand(time(0));
     int value = (rand() % (max - min + 1)) + min;
     return value;
