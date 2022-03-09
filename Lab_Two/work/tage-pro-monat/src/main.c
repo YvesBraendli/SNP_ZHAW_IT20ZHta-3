@@ -10,9 +10,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 #define ERROR_IN_MONTH 1
 #define ERROR_IN_YEAR 2
+
+int gibIntWert(char stringSwitch[], int min, int max);
+int istSchaltjahr(int year);
+int tageProMonat(int year, int month);
+
 
 ///// Student Code
 
@@ -36,7 +43,59 @@ int main (int argc, char *argv[]) {
     printf("%d ist %s Schaltjahr\n", jahr, istSchaltjahr(jahr) ? "ein" : "kein");
 
     // Ausgabe
-    printf("Der Monat %02d-%d hat %d Tage.\n", monat, jahr, tageProMonat(jahr, monat));
+    printf("Der Monat %02d-%d hat %d Tage.\n", monat, jahr, tageProMonat(4008, 2));
    
     return 0;
+}
+
+int gibIntWert(char stringSwitch[], int min, int max){
+    srand(time(0));
+    int value = (rand() % (max - min + 1)) + min;
+    return value;
+}
+
+int istSchaltjahr(int year){
+    int checkSplitWithFour = year/4;
+    int checkIsEvenHundreds = year/100;
+    int checkSplitWithFourhundred = year/400;
+    int isSwitchYear = 0;
+    if (4*checkSplitWithFour == year&&(100*checkIsEvenHundreds!=year||400*checkSplitWithFourhundred==year)){
+        isSwitchYear = 1;
+    }
+    return isSwitchYear;
+}
+
+int tageProMonat(int year, int month){
+    int daysPerMonth;
+    enum months { DAYNRHIGH=31, FEB=28, DAYNRLOW=30};
+    switch (month){
+        case 1: daysPerMonth=DAYNRHIGH;
+            break;
+        case 2: daysPerMonth=FEB;
+            break;
+        case 3: daysPerMonth=DAYNRHIGH;
+            break;
+        case 4: daysPerMonth=DAYNRLOW;
+            break;
+        case 5: daysPerMonth=DAYNRHIGH;
+            break;
+        case 6: daysPerMonth=DAYNRLOW;
+            break;
+        case 7: daysPerMonth=DAYNRHIGH;
+            break;
+        case 8: daysPerMonth=DAYNRHIGH;
+            break;
+        case 9: daysPerMonth=DAYNRLOW;
+            break;
+        case 10: daysPerMonth=DAYNRHIGH;
+            break;
+        case 11: daysPerMonth=DAYNRLOW;
+            break;
+        case 12: daysPerMonth=DAYNRHIGH;
+            break;
+    }
+    if (istSchaltjahr(year)==1&&month==2){
+        daysPerMonth++;
+    }
+    return daysPerMonth;
 }
