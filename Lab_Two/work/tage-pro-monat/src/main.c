@@ -49,6 +49,12 @@ int main (int argc, char *argv[]) {
 }
 
 int gibIntWert(char stringSwitch[], int min, int max){
+    char checkisMonth[] = "Monat";
+    char checkisYear[] = "Jahr";
+    if (strcmp(stringSwitch,"Monat")!=0&&strcmp(stringSwitch,"Jahr")!=0){
+        printf("Ungültige Schlüsselwort. Geben sie entweder Monat oder Jahr ein.\n");
+        exit(0);
+    }
     if (stringSwitch[0]=='M'&&(min<1||max>12)){
         printf("Ungültiger Range für Monat. Geben sie einen Wert zwischen 1 und 12 ein.\n");
         exit(0);
