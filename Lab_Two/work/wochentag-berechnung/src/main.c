@@ -35,6 +35,11 @@ struct date_t {
 
 // END-STUDENTS-TO-ADD-CODE
 
+int is_leap_year(struct date_t date);
+int get_month_length(struct date_t date);
+int is_gregorian_date(struct date_t date);
+void wochenTagAusgeben(struct date_t date);
+
 
 
 // *** TASK2: typedef enum weekday_t (Sun=0, Mon, ...Sat) ***
@@ -114,22 +119,23 @@ int main(int argc, const char *argv[])
     struct date_t givenDate;
     int res = sscanf(argv[1]
                 , "%d-%d-%d"
-                , &givenDate.year, &givenDate.month, &givenDate.day
+                , &(givenDate.year), &(givenDate.month), &(givenDate.day)
                 );
     if (res !=3||9999<givenDate.year||givenDate.year<1000||12<givenDate.month||givenDate.month<1||31<givenDate.day||givenDate.day<1){
         printf("Ungültige Eingabe, geben sie ein Datum in der Form yyyy-mm-dd ein.\n");
         exit(0);
     }
-    if (is_gregorian_date(givenDate.year, givenDate.month, givenDate.day)){
+    if (is_gregorian_date(givenDate)){
         printf("Sie haben kein greogrianisches Datum eingegeben.\n");
         exit(0);
     }
+    
     // END-STUDENTS-TO-ADD-CODE
 
 
     // TASK2: calculate the weekday and print it in this format: "%04d-%02d-%02d is a %s\n"
     // BEGIN-STUDENTS-TO-ADD-CODE
-    
+    wochenTagAusgeben(givenDate);
 
     // END-STUDENTS-TO-ADD-CODE
 
@@ -137,22 +143,22 @@ int main(int argc, const char *argv[])
 }
 
 
-int is_leap_year(int year)
+int is_leap_year(struct date_t date)
 {
-    int checkSplitWithFour = year/4;
-    int checkIsEvenHundreds = year/100;
-    int checkSplitWithFourhundred = year/400;
+    int checkSplitWithFour = date.year/4;
+    int checkIsEvenHundreds = date.year/100;
+    int checkSplitWithFourhundred = date.year/400;
     int isSwitchYear = 0;
-    if (4*checkSplitWithFour == year&&(100*checkIsEvenHundreds!=year||400*checkSplitWithFourhundred==year)){
+    if (4*checkSplitWithFour == date.year&&(100*checkIsEvenHundreds!=date.year||400*checkSplitWithFourhundred==date.year)){
         isSwitchYear = 1;
     }
     return isSwitchYear;
 }
 
-int get_month_length(int year, int month){
+int get_month_length(struct date_t date){
     int daysPerMonth;
     enum months { DAYNRHIGH=31, FEB=28, DAYNRLOW=30};
-    switch (month){
+    switch (date.month){
         case 1: daysPerMonth=DAYNRHIGH;
             break;
         case 2: daysPerMonth=FEB;
@@ -178,56 +184,58 @@ int get_month_length(int year, int month){
         case 12: daysPerMonth=DAYNRHIGH;
             break;
     }
-    if (istSchaltjahr(year)==1&&month==2){
+    if (is_leap_year(date)==1&&date.month==2){
         daysPerMonth++;
     }
     return daysPerMonth;
 }
 
-int is_gregorian_date(int year, int month, int day)
+int is_gregorian_date(struct date_t date)
 {
-    int isGregorian = 1;
-    if (year>9999||year<1582||(year=1582&&month<10)||(year=1582&&month=10&&day<15)){
-        isGregorian = 0;
+    int isGregorian = 0;
+    if (date.year>9999||date.year<1582
+        ||(date.year==1582&&date.month<10)
+            ||(date.year==1582&&date.month==10&&date.day<15)){
+        isGregorian = 1;
     }
     return isGregorian;
 }
 
-void wochenTagAusgeben(struct Tuple input) {
+void wochenTagAusgeben(struct date_t date) {
     int weekday, m, a, y, c;
-    m = 1 + (input.monat + 9) % 12;
-    if(input.monat == Januar || input.monat == Februar){
-        a = input.jahr - 1;
+    m = 1 + (date.month + 9) % 12;
+    if(date.month == 1 || date.month == 2){
+        a = date.year - 1;
     } else {
-        a = input.jahr;
+        a = date.year;
     }
     y = a % 100;
     c = a / 100;
-    weekday = ((input.tag + (13 * m - 1) / 5 + y + y / 4 + c / 4 - 2 * c) % 7 + 7) % 7;
+    weekday = ((date.day + (13 * m - 1) / 5 + y + y / 4 + c / 4 - 2 * c) % 7 + 7) % 7;
     switch (weekday) {
         case (Montag):
-            printf("Das eingegebene Datum ist ein Montag.");
+            printf("Das eingegebene Datum ist ein Montag.\n");
             break;
         case (Dienstag):
-            printf("Das eingegebene Datum ist ein Dienstag.");
+            printf("Das eingegebene Datum ist ein Dienstag.\n");
             break;
         case (Mittwoch):
-            printf("Das eingegebene Datum ist ein Mittwoch.");
+            printf("Das eingegebene Datum ist ein Mittwoch.\n");
             break;
         case (Donnerstag):
-            printf("Das eingegebene Datum ist ein Donnerstag.");
+            printf("Das eingegebene Datum ist ein Donnerstag.\n");
             break;
         case (Freitag):
-            printf("Das eingegebene Datum ist ein Freitag.");
+            printf("Das eingegebene Datum ist ein Freitag.\n");
             break;
         case (Samstag):
-            printf("Das eingegebene Datum ist ein Samstag.");
+            printf("Das eingegebene Datum ist ein Samstag.\n");
             break;
         case (Sonntag):
-            printf("Das eingegebene Datum ist ein Sonntag.");
+            printf("Das eingegebene Datum ist ein Sonntag.\n");
             break;
         default:
-            printf("Kein Wochentag für Input gefunden...");
+            printf("Kein Wochentag für Input gefunden...\n");
     }
 }
 
