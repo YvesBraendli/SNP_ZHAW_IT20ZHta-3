@@ -4,6 +4,9 @@
 #define OPERAND_BUFFER_SIZE 10
 
 typedef struct {
+    int operand_1;
+    int operand_2;
+    char operator;
     /* 
     Students: The Expression struct should hold the two operands and
     the operation (use a char for the operation)
@@ -27,6 +30,36 @@ unsigned int parse_operand(char operand_str[]) {
 }
 
 void print_binary(unsigned int value) {
+    int binary[32];
+    int resident;
+    for (int i = 0; i<32; i++){
+        binary[i]=0;
+    }
+    int counter = 33;
+    while(value>0){
+        counter-=1;
+        if (counter>32){
+          printf("Eingegebener Wert zu gross, geben sie einen Wert ein, welcher kleiner als 4'294'967'295 ist.");
+          exit(0);
+       }
+       resident = value % 2;
+       if (resident==1){
+          binary[counter-1]=1;
+       }
+              value /= 2;
+       }
+    printf("Binary-Value: ");
+    int printCounter = 0;
+    for (int l = 0; l<32; l++){
+        if (printCounter==8){
+            printf("'");
+            printCounter = 0;
+        }
+        printf("%d", binary[l]);
+        printCounter +=1;
+    }
+    printf("\n");
+    
     // Students: Print a single number as a binary string
 }
 
@@ -73,18 +106,19 @@ int main(){
 
     do {
         printf("Geben sie die Bit-Operation ein:\n");
-
+        
         scanf("%s %c %s", operand1_str, &operation, operand2_str);
         
         operand1 = parse_operand(operand1_str);
         operand2 = parse_operand(operand2_str);
-
-        Expression expression = ... ;   // Students: Create an expression
-
-        unsigned int result = bit_operation(expression);
-        print_bit_operation_bin(expression, result);
-        print_bit_operation_hex(expression, result);
-        print_bit_operation_dec(expression, result);
+        
+        Expression expression = {operand1,operand2,operation} ;   // Students: Create an expression
+        //printf("Hier 1");
+        print_binary(65487);
+        //unsigned int result = bit_operation(expression);
+        //print_bit_operation_bin(expression, result);
+        //print_bit_operation_hex(expression, result);
+        //print_bit_operation_dec(expression, result);
 
         while(getchar() != '\n');
         printf("\nMöchten sie weiter machen oder abbrechen? [(n)ext|(q)uit] ");
