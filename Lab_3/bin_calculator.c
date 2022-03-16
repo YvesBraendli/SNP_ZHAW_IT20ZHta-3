@@ -48,7 +48,6 @@ void print_binary(unsigned int value) {
        }
               value /= 2;
        }
-    printf("Binary-Value: ");
     int printCounter = 0;
     for (int l = 0; l<32; l++){
         if (printCounter==8){
@@ -58,12 +57,18 @@ void print_binary(unsigned int value) {
         printf("%d", binary[l]);
         printCounter +=1;
     }
-    printf("\n");
-    
     // Students: Print a single number as a binary string
 }
 
 void print_bit_operation_bin(Expression expression, unsigned int result) {
+    printf("Bin:\n");
+    print_binary(expression.operand_1);
+    printf("\n");
+    print_binary(expression.operand_2);
+    printf(" %c\n", expression.operator);
+    printf("-----------------------------------\n");
+    print_binary(result);
+    
     /* 
     Students: Print the entire operation in bin including the result
 
@@ -114,9 +119,8 @@ int main(){
         
         Expression expression = {operand1,operand2,operation} ;   // Students: Create an expression
         //printf("Hier 1");
-        print_binary(65487);
         //unsigned int result = bit_operation(expression);
-        //print_bit_operation_bin(expression, result);
+        print_bit_operation_bin(expression, 32);
         //print_bit_operation_hex(expression, result);
         //print_bit_operation_dec(expression, result);
 
