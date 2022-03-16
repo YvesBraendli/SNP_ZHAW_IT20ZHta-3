@@ -103,21 +103,23 @@ void print_bit_operation_dec(Expression expression, unsigned int result) {
 }
 
 unsigned int bit_operation(Expression expression) {
-    if (expression.operator==&){
-          
+    unsigned int result;
+    if (expression.operator=='&'){
+       result = expression.operand_1 & expression.operand_2;
        }
-    if (expression.operator==|){
-          
+    if (expression.operator=='|'){
+       result = expression.operand_1 | expression.operand_2; 
        }
-    if (expression.operator==^){
-          
+    if (expression.operator=='^'){
+       result = expression.operand_1 ^ expression.operand_2; 
        }
-    if (expression.operator==<){
-          
+    if (expression.operator=='<'){
+       result = expression.operand_1 << expression.operand_2;
        }
-    if (expression.operator==>){
-          
+    if (expression.operator=='>'){
+       result = expression.operand_1 >> expression.operand_2;  
        }
+    return result;
     // Students: Do the actual bit operation and return the result
 }
 
@@ -137,10 +139,13 @@ int main(){
         operand2 = parse_operand(operand2_str);
         
         Expression expression = {operand1,operand2,operation} ;   // Students: Create an expression
-        //unsigned int result = bit_operation(expression);
-        //print_bit_operation_bin(expression, result);
-        //print_bit_operation_hex(expression, result);
-        //print_bit_operation_dec(expression, result);
+        unsigned int result = bit_operation(expression);
+        printf("\n\n");
+        print_bit_operation_bin(expression, result);
+        printf("\n\n");
+        print_bit_operation_hex(expression, result);
+        printf("\n\n");
+        print_bit_operation_dec(expression, result);
 
         while(getchar() != '\n');
         printf("\nMöchten sie weiter machen oder abbrechen? [(n)ext|(q)uit] ");
