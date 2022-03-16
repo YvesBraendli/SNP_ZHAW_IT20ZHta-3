@@ -81,6 +81,8 @@ void print_bit_operation_bin(Expression expression, unsigned int result) {
 }
 
 void print_bit_operation_hex(Expression expression, unsigned int result) {
+    printf("Hex:\n");
+    printf("%x %c %x = %x", expression.operand_1, expression.operator, expression.operand_2, result);
     /* 
     Students: Print the entire operation in hex including the result
 
@@ -90,6 +92,8 @@ void print_bit_operation_hex(Expression expression, unsigned int result) {
 }
 
 void print_bit_operation_dec(Expression expression, unsigned int result) {
+    printf("Dec:\n");
+    printf("%d %c %d = %d", expression.operand_1, expression.operator, expression.operand_2, result);
     /* 
     Students: Print the entire operation in hex including the result
 
@@ -99,6 +103,21 @@ void print_bit_operation_dec(Expression expression, unsigned int result) {
 }
 
 unsigned int bit_operation(Expression expression) {
+    if (expression.operator==&){
+          
+       }
+    if (expression.operator==|){
+          
+       }
+    if (expression.operator==^){
+          
+       }
+    if (expression.operator==<){
+          
+       }
+    if (expression.operator==>){
+          
+       }
     // Students: Do the actual bit operation and return the result
 }
 
@@ -118,9 +137,8 @@ int main(){
         operand2 = parse_operand(operand2_str);
         
         Expression expression = {operand1,operand2,operation} ;   // Students: Create an expression
-        //printf("Hier 1");
         //unsigned int result = bit_operation(expression);
-        print_bit_operation_bin(expression, 32);
+        //print_bit_operation_bin(expression, result);
         //print_bit_operation_hex(expression, result);
         //print_bit_operation_dec(expression, result);
 
