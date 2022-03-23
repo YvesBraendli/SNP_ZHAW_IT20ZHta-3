@@ -18,6 +18,8 @@
 
 /// max side length
 #define MAX_NUMBER 1000
+#define READ_ERROR -2
+
 
 
 /**
@@ -27,7 +29,51 @@
 int main(void)
 {
 	// begin students to add code for task 4.1
-	
+	while(1){
+	    printf("\nDreiecksbestimmung (CTRL-C: Abbruch)\n");
+	    int word = 0;
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        
+        do {
+            printf("Seite a: ");
+            word = getInt(MAX_NUMBER); // Methode ReadInt von read aufrufen
+        }
+        while ((word < 0) && (word != READ_ERROR));
+        
+        if (word >= 0)
+            a = word;
+        else
+            break;
+            
+         do {
+             printf("Seite b: ");
+             word = getInt(MAX_NUMBER); // Methode ReadInt von read aufrufen
+         }
+         while ((word < 0) && (word != READ_ERROR));
+         if (word >= 0)
+             b = word;
+         else
+             break;
+         
+         do {
+             printf("Seite c: ");
+             word = getInt(MAX_NUMBER); // Methode ReadInt von read aufrufen
+         }
+         while ((word < 0) && (word != READ_ERROR));
+         if (word >= 0)
+             c = word;
+         else
+             break;
+             
+         if (Rectangular(a, b, c)) // Methode Rectangular von rectang aufrufen
+             printf("-> Dreieck %d - %d - %d ist rechtwinklig", a, b, c);
+         else
+             printf("-> Dreieck %d - %d - %d ist nicht rechtwinklig", a, b, c);
+         printf("\n");
+     }
+     printf("\n\nbye bye\n");
 	// end students to add code
     return EXIT_SUCCESS;
 }
