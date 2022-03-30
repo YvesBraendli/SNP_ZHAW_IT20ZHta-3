@@ -28,7 +28,7 @@ static void set_state(model_t *instance, model_pos_t pos, model_state_t state)
     // Instructions to the students:
     // set the field of the board to the new state
     // BEGIN-STUDENTS-TO-ADD-CODE
-
+    instance->board[pos.row][pos.col] = state;
 
     
 
