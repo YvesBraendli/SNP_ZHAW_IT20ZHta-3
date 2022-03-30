@@ -51,7 +51,10 @@ void model_init(model_t *instance)
     // Instructions to the students:
     // set all fields of the board to model_state_none
     // BEGIN-STUDENTS-TO-ADD-CODE
-
+    int size = sizeof model_t / sizeof model_t[0];
+    for (int i=0; i<size; i++){
+        model_t [i][i] = model_state_t.model_state_none;
+    }
 
 
 
