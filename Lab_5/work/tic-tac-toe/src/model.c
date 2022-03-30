@@ -142,8 +142,16 @@ int model_can_move(model_t *instance)
         // Instructions to the students:
         // scan all fields: return 1 with first field which equals model_state_none
         // BEGIN-STUDENTS-TO-ADD-CODE
-
-
+        int check = 0;
+        int size = MODEL_SIZE;
+        for (int i=0; i<size; i++){
+            for (int j=0; j<size; j++){
+                if(instance->board[i][j] == model_state_none){
+                    check = 1;
+                }
+            }
+        }
+        return check;
 
 
 
