@@ -53,7 +53,9 @@ void model_init(model_t *instance)
     // BEGIN-STUDENTS-TO-ADD-CODE
     int size = MODEL_SIZE;
     for (int i=0; i<size; i++){
-        instance->board[i][i] = model_state_none;
+        for (int j=0; j<size; j++){
+            instance->board[i][j] = model_state_none;
+        }
     }
 
 
