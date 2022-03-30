@@ -74,9 +74,7 @@ model_state_t model_get_state(model_t *instance, model_pos_t pos)
     // Instructions to the students:
     // replace the stub implementation my access to the field at the given position.
     // BEGIN-STUDENTS-TO-ADD-CODE
-
-
-    return model_state_none; // stub 
+    return instance->board[pos.row][pos.col];
 
 
     // END-STUDENTS-TO-ADD-CODE
