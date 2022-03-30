@@ -25,6 +25,21 @@ int main (void){
             exit(0);
         }
     }
+    printf("hier");
+    for (int k=0; k<10; k++){
+        int min = k;
+        for (int i=k+1; i<10; i++){
+            if (strcmp(words[i],words[min])<0){
+                min=i;
+            }
+        }
+        if (strcmp(words[min],words[k])!=0){
+            char *helpWord;
+            *helpWord = *words[min];
+            *words[min] = *words[k];
+            *words[k] = *helpWord;
+        }
+    }
     printf("Inserted: %s", words[1]);
     return EXIT_SUCCESS;
 }
