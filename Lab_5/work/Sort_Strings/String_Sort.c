@@ -37,12 +37,10 @@ int main (void){
             }
         }
         if (strcmp(words[min],words[k])!=0){
-            char *tempMin=words[min];
-            char *tempk=words[k];
             char temp;
-            temp = *tempMin;
-            *tempMin = *tempk;
-            *tempk = temp;
+            temp = *words[min];
+            *words[min] = *words[k];
+            *words[k] = temp;
         }
     }
     printf("Sorted List:\n");
