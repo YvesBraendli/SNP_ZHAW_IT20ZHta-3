@@ -16,16 +16,19 @@ The input should terminate, either when ZZZ is typed as word or the 10 words max
 int main (void){
     char words[10][20];
     int wordCount=0;
+    int flag = 0;
     while (wordCount<10
-    &&strcmp(words[wordCount],"ZZZ")!=0){
-        wordCount+=1;
+    &&flag==0){
         scanf("%s", words[wordCount]);
+        if (strcmp(words[wordCount],"ZZZ")==0){
+            flag=1;
+        }
         if (strlen(words[wordCount])>20){
             printf("Wort zu lang, es sind nur maximal 20 Zeichen erlaubt.\n");
             exit(0);
         }
+        wordCount+=1;
     }
-    printf("hier");
     for (int k=0; k<10; k++){
         int min = k;
         for (int i=k+1; i<10; i++){
@@ -34,12 +37,17 @@ int main (void){
             }
         }
         if (strcmp(words[min],words[k])!=0){
-            char *helpWord;
-            *helpWord = *words[min];
-            *words[min] = *words[k];
-            *words[k] = *helpWord;
+            char *tempMin=words[min];
+            char *tempk=words[k];
+            char temp;
+            temp = *tempMin;
+            *tempMin = *tempk;
+            *tempk = temp;
         }
     }
-    printf("Inserted: %s", words[1]);
+    printf("Sorted List:\n");
+    for (int z=0; z<10;z++){
+        printf("%s\n", words[z]);
+    }
     return EXIT_SUCCESS;
 }
