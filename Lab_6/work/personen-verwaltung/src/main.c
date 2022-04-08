@@ -13,6 +13,8 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include "list.h"
+#include "person.h"
 
 /**
  * @brief Main entry point.
@@ -23,7 +25,8 @@
 int main(int argc, char* argv[])
 {
 	// BEGIN-STUDENTS-TO-ADD-CODE
-    
+    list_t list;
+    person_t person;
 	// END-STUDENTS-TO-ADD-CODE
     return EXIT_SUCCESS;
 }
