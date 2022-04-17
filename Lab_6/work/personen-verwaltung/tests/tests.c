@@ -18,6 +18,8 @@
 #include <assert.h>
 #include <CUnit/Basic.h>
 #include "test_utils.h"
+#include "person.h"
+#include "list.h"
 
 #ifndef TARGET // must be given by the make file --> see test target
 #error missing TARGET define
@@ -55,11 +57,87 @@ static void test_person_compare(void)
 {
 	// BEGIN-STUDENTS-TO-ADD-CODE
 	// arrange
-
-	// act
-	CU_FAIL("missing test");
+	person_t a = { "a", "a", 1 };
+	person_t b = { "a", "a", 2 };
+	person_t c = { "a", "b", 1 };
+	person_t d = { "a", "b", 2 };
+	person_t e = { "b", "a", 1 };
+	person_t f = { "b", "a", 2 };
+	person_t g = { "b", "b", 1 };
+	person_t h = { "b", "b", 2 };
 	
-	// assert
+	// act & assert
+	CU_ASSERT_TRUE(person_compare(&a, &a) == 0);
+	CU_ASSERT_TRUE(person_compare(&a, &b) < 0);
+	CU_ASSERT_TRUE(person_compare(&a, &c) < 0);
+	CU_ASSERT_TRUE(person_compare(&a, &d) < 0);
+	CU_ASSERT_TRUE(person_compare(&a, &e) < 0);
+	CU_ASSERT_TRUE(person_compare(&a, &f) < 0);
+	CU_ASSERT_TRUE(person_compare(&a, &g) < 0);
+	CU_ASSERT_TRUE(person_compare(&a, &h) < 0);
+	
+	CU_ASSERT_TRUE(person_compare(&b, &a) > 0);
+	CU_ASSERT_TRUE(person_compare(&b, &b) == 0);
+	CU_ASSERT_TRUE(person_compare(&b, &c) < 0);
+	CU_ASSERT_TRUE(person_compare(&b, &d) < 0);
+	CU_ASSERT_TRUE(person_compare(&b, &e) < 0);
+	CU_ASSERT_TRUE(person_compare(&b, &f) < 0);
+	CU_ASSERT_TRUE(person_compare(&b, &g) < 0);
+	CU_ASSERT_TRUE(person_compare(&b, &h) < 0);
+	
+	CU_ASSERT_TRUE(person_compare(&c, &a) > 0);
+	CU_ASSERT_TRUE(person_compare(&c, &b) > 0);
+	CU_ASSERT_TRUE(person_compare(&c, &c) == 0);
+	CU_ASSERT_TRUE(person_compare(&c, &d) < 0);
+	CU_ASSERT_TRUE(person_compare(&c, &e) < 0);
+	CU_ASSERT_TRUE(person_compare(&c, &f) < 0);
+	CU_ASSERT_TRUE(person_compare(&c, &g) < 0);
+	CU_ASSERT_TRUE(person_compare(&c, &h) < 0);
+	
+	CU_ASSERT_TRUE(person_compare(&d, &a) > 0);
+	CU_ASSERT_TRUE(person_compare(&d, &b) > 0);
+	CU_ASSERT_TRUE(person_compare(&d, &c) > 0);
+	CU_ASSERT_TRUE(person_compare(&d, &d) == 0);
+	CU_ASSERT_TRUE(person_compare(&d, &e) < 0);
+	CU_ASSERT_TRUE(person_compare(&d, &f) < 0);
+	CU_ASSERT_TRUE(person_compare(&d, &g) < 0);
+	CU_ASSERT_TRUE(person_compare(&d, &h) < 0);
+	
+	CU_ASSERT_TRUE(person_compare(&e, &a) > 0);
+	CU_ASSERT_TRUE(person_compare(&e, &b) > 0);
+	CU_ASSERT_TRUE(person_compare(&e, &c) > 0);
+	CU_ASSERT_TRUE(person_compare(&e, &d) > 0);
+	CU_ASSERT_TRUE(person_compare(&e, &e) == 0);
+	CU_ASSERT_TRUE(person_compare(&e, &f) < 0);
+	CU_ASSERT_TRUE(person_compare(&e, &g) < 0);
+	CU_ASSERT_TRUE(person_compare(&e, &h) < 0);
+	
+	CU_ASSERT_TRUE(person_compare(&f, &a) > 0);
+	CU_ASSERT_TRUE(person_compare(&f, &b) > 0);
+	CU_ASSERT_TRUE(person_compare(&f, &c) > 0);
+	CU_ASSERT_TRUE(person_compare(&f, &d) > 0);
+	CU_ASSERT_TRUE(person_compare(&f, &e) > 0);
+	CU_ASSERT_TRUE(person_compare(&f, &f) == 0);
+	CU_ASSERT_TRUE(person_compare(&f, &g) < 0);
+	CU_ASSERT_TRUE(person_compare(&f, &h) < 0);
+	
+	CU_ASSERT_TRUE(person_compare(&g, &a) > 0);
+	CU_ASSERT_TRUE(person_compare(&g, &b) > 0);
+	CU_ASSERT_TRUE(person_compare(&g, &c) > 0);
+	CU_ASSERT_TRUE(person_compare(&g, &d) > 0);
+	CU_ASSERT_TRUE(person_compare(&g, &e) > 0);
+	CU_ASSERT_TRUE(person_compare(&g, &f) > 0);
+	CU_ASSERT_TRUE(person_compare(&g, &g) == 0);
+	CU_ASSERT_TRUE(person_compare(&g, &h) < 0);
+	
+	CU_ASSERT_TRUE(person_compare(&h, &a) > 0);
+	CU_ASSERT_TRUE(person_compare(&h, &b) > 0);
+	CU_ASSERT_TRUE(person_compare(&h, &c) > 0);
+	CU_ASSERT_TRUE(person_compare(&h, &d) > 0);
+	CU_ASSERT_TRUE(person_compare(&h, &e) > 0);
+	CU_ASSERT_TRUE(person_compare(&h, &f) > 0);
+	CU_ASSERT_TRUE(person_compare(&h, &g) > 0);
+	CU_ASSERT_TRUE(person_compare(&h, &h) == 0);
 	
 	// END-STUDENTS-TO-ADD-CODE
 }
@@ -68,11 +146,47 @@ static void test_list_insert(void)
 {
 	// BEGIN-STUDENTS-TO-ADD-CODE
 	// arrange
+	const node_t *anchor = list_init();
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next);
 
-	// act
-	CU_FAIL("missing test");
+	// act & assert: insert one
+	person_t p1 = { "a", "b", 123 };
+	CU_ASSERT_TRUE(list_insert(&p1));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
 	
-	// assert
+	// act & assert: insert a second after first
+	person_t p2 = { "a", "b", 124 };
+	CU_ASSERT_TRUE(list_insert(&p2));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->content), &p2) == 0);
+	
+	// act & assert: insert a second before first
+	person_t p3 = { "a", "b", 122 };
+	CU_ASSERT_TRUE(list_insert(&p3));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p3) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->content), &p1) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->next->content), &p2) == 0);
+	
+	// act & assert: reject inserting same
+	CU_ASSERT_FALSE(list_insert(&p1));
+	// unchanged
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next->next->next);
+	// unchanged
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p3) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->content), &p1) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->next->content), &p2) == 0);
 	
 	// END-STUDENTS-TO-ADD-CODE
 }
@@ -81,11 +195,55 @@ static void test_list_remove(void)
 {
 	// BEGIN-STUDENTS-TO-ADD-CODE
 	// arrange
+	const node_t *anchor = list_init();
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next);
 
-	// act
-	CU_FAIL("missing test");
+	// act & assert: remove one
+	person_t p1 = { "a", "b", 123 };
+	CU_ASSERT_TRUE(list_insert(&p1));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	// remove same
+	CU_ASSERT_TRUE_FATAL(list_remove(&p1));
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next);
 	
-	// assert
+	// act & assert: failed to remove
+	CU_ASSERT_TRUE(list_insert(&p1));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	// remove not found
+	person_t p2 = { "a", "b", 124 };
+	CU_ASSERT_FALSE_FATAL(list_remove(&p2));
+	// unchanged
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	
+	// act & assert: remove last
+	CU_ASSERT_TRUE(list_insert(&p2));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->content), &p2) == 0);
+	CU_ASSERT_TRUE_FATAL(list_remove(&p2));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	
+	// act & assert: remove first
+	CU_ASSERT_TRUE(list_insert(&p2));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->content), &p2) == 0);
+	CU_ASSERT_TRUE_FATAL(list_remove(&p1));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p2) == 0);
 	
 	// END-STUDENTS-TO-ADD-CODE
 }
@@ -94,12 +252,34 @@ static void test_list_clear(void)
 {
 	// BEGIN-STUDENTS-TO-ADD-CODE
 	// arrange
+	const node_t *anchor = list_init();
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next);
+	
+	// act & assert: empty list
+	list_clear();
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next);
+	
+	// act & assert: clear list of one
+	person_t p1 = { "a", "b", 123 };
+	CU_ASSERT_TRUE(list_insert(&p1));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	list_clear();
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next);
 
-	// act
-	CU_FAIL("missing test");
-	
-	// assert
-	
+	// act & assert: clear list of two
+	person_t p2 = { "a", "b", 124 };
+	CU_ASSERT_TRUE(list_insert(&p1));
+	CU_ASSERT_TRUE(list_insert(&p2));
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next);
+	CU_ASSERT_PTR_NOT_EQUAL(anchor, anchor->next->next);
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next->next->next);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->content), &p1) == 0);
+	CU_ASSERT_TRUE(person_compare(&(anchor->next->next->content), &p2) == 0);
+	list_clear();
+	CU_ASSERT_PTR_EQUAL(anchor, anchor->next);
+
 	// END-STUDENTS-TO-ADD-CODE
 }
 

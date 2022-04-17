@@ -13,8 +13,9 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
+
 #include "person.h"
+#include "list.h"
 
 /**
  * @brief Main entry point.
@@ -25,8 +26,43 @@
 int main(int argc, char* argv[])
 {
 	// BEGIN-STUDENTS-TO-ADD-CODE
-    list_t list;
-    person_t person;
+	list_init();
+	person_t p;
+	int show_menu = 1;
+	while(1) {
+		if (show_menu) printf("I(nsert), R(emove), S(how), C(lear), E(nd)\n");
+		show_menu = 1;
+		int op = getchar();
+		switch(op) {
+		case 'I': case 'i':
+			if (!person_read(&p) || !list_insert(&p)) {
+				printf("failed to insert person\n");
+			}
+			break;
+		case 'R': case 'r':
+			if (!person_read(&p) || !list_remove(&p)) {
+				printf("failed to remove person\n");
+			}
+			break;
+		case 'S': case 's':
+			list_show();
+			break;
+		case 'C': case 'c':
+			list_clear();
+			break;
+		case EOF:
+		case 'E': case 'e':
+			return EXIT_SUCCESS; // *** EARLY RETURN *** //
+			break;
+		case ' ': case '\n':
+			show_menu = 0;
+			break;
+		default:
+			printf("Unknown command: %c\n", op);
+			break;
+		}
+	}
+	
 	// END-STUDENTS-TO-ADD-CODE
     return EXIT_SUCCESS;
 }
